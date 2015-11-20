@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+*.opensdf
+QuadTreeDemo/Debug/
+*.sdf
+ipch/QUADTREEDEMO-bb3d4ea8/QUADTREEDEMO-2994158c.ipch
+ipch/

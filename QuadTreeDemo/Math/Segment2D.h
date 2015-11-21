@@ -14,11 +14,10 @@ private:
 	Vector2D<TYPE> _direction;
 	TYPE	_length;
 	TYPE	_invlength;
-	bool	_norm;
 
 public:
 
-	Segment2D(): _origin(0, 0), _direction(0, 0), _length(0), _invlength(0), _norm(false) {}
+	Segment2D(): _origin(0, 0), _direction(0, 0), _length(0), _invlength(0) {}
 
 	Segment2D(const Vector2D<TYPE>& inOrigin, const Vector2D<TYPE>& inDestination)
 	{
@@ -35,7 +34,6 @@ public:
 			_length = 0;
 			_invlength = 0;
 		}
-		_norm = true;
 	}
 
 	void Move(const Vector2D<TYPE>& inOrigin) { _origin = inOrigin; }

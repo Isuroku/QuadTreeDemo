@@ -17,7 +17,7 @@
 // CQuadTreeDemoApp
 
 BEGIN_MESSAGE_MAP(CQuadTreeDemoApp, CWinApp)
-	ON_COMMAND(ID_APP_ABOUT, &CQuadTreeDemoApp::OnAppAbout)
+//	ON_COMMAND(ID_APP_ABOUT, &CQuadTreeDemoApp::OnAppAbout)
 END_MESSAGE_MAP()
 
 
@@ -123,8 +123,8 @@ END_MESSAGE_MAP()
 // App command to run the dialog
 void CQuadTreeDemoApp::OnAppAbout()
 {
-	CAboutDlg aboutDlg;
-	aboutDlg.DoModal();
+	/*CAboutDlg aboutDlg;
+	aboutDlg.DoModal();*/
 }
 
 // CQuadTreeDemoApp message handlers

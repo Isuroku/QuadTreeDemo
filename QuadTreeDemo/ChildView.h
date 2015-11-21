@@ -41,7 +41,7 @@ protected:
 	float							_intersecT;
 
 	void							DrawTree(CPaintDC& inDC, bool inUseRepaintRect);
-	void							AddObstacle(ELMBState inState, const CPoint& point);
+	void							AddObstacle(ELMBState inState, const CPoint& point, float inWidth = 50);
 	void							RemoveObstacle(const CPoint& point);
 	void							CheckIntersect();
 	
@@ -52,8 +52,7 @@ public:
 	void							SetLMBState(ELMBState inState) { _LMBState = inState; }
 	void							SetOwner(CMainFrame* inOwner) { _owner = inOwner; }
 	void							SetTestObstacles();
-
-	
+	void							ClearAllObstacles();	
 
 	// Generated message map functions
 protected:

@@ -25,7 +25,7 @@ CChildView::CChildView():
 	_owner = nullptr;
 	_LMBState = ELMBState::Select;
 
-	//_crtBreakAlloc = 534;
+	srand((unsigned int)time(NULL));
 }
 
 CChildView::~CChildView()
@@ -105,10 +105,6 @@ void CChildView::DrawTree(CPaintDC& inDC, bool inUseRepaintRect)
 		Rect2Df boundrect = inLeaf.GetBound();
 
 		inDC.Rectangle(&boundrect.GetWinRect());
-		/*if(inLeaf.IsClear())
-		inDC.FrameRect(&boundrect.GetWinRect(), &brush);
-		else
-		inDC.FillRect(&boundrect.GetWinRect(), &brush);*/
 	});
 }
 
@@ -186,7 +182,7 @@ void CChildView::OnLButtonUp(UINT nFlags, CPoint point)
 	__super::OnLButtonUp(nFlags, point);
 }
 
-void CChildView::AddObstacle(ELMBState inState, const CPoint& point)
+void CChildView::AddObstacle(ELMBState inState, const CPoint& point, float inWidth/* = 50*/)
 {
 	if (inState != ELMBState::AddCircleObstacle && 
 		inState != ELMBState::AddOBBObstacle)
@@ -195,8 +191,15 @@ void CChildView::AddObstacle(ELMBState inState, const CPoint& point)
 	CObstacle* pobst = nullptr;
 	switch (inState)
 	{
-		case ELMBState::AddCircleObstacle: pobst = new CObstacleCircle(point, 50); break;
-		case ELMBState::AddOBBObstacle: pobst = new CObstacleOBB(point, 50, 150); break;
+		case ELMBState::AddCircleObstacle: pobst = new CObstacleCircle(point, inWidth); break;
+		case ELMBState::AddOBBObstacle: 
+		{
+			auto obb = new CObstacleOBB(point, inWidth, inWidth * 3);
+			float i = (rand() / (float)RAND_MAX) * 3.14f;
+			obb->Rotate(i);
+			pobst = obb;
+			break;
+		}
 	}
 
 	if (pobst != nullptr)
@@ -258,13 +261,29 @@ void CChildView::OnLeafChangedHandler(const CQuadLeaf* inLeaf, ELeafChangeType i
 	_repaintrect.push_back(inLeaf->GetBound());
 }
 
+void CChildView::ClearAllObstacles()
+{
+	if (_tree != nullptr)
+		for (auto p : _obstacles)
+			_tree->DeleteObject(*p.get());
+
+	_obstacles.clear();
+
+	Invalidate();
+}
 
 void CChildView::SetTestObstacles()
 {
-	AddObstacle(ELMBState::AddCircleObstacle, CPoint(236, 253));
-	/*AddObstacle(ELMBState::AddCircleObstacle, CPoint(190, 109));
-	AddObstacle(ELMBState::AddCircleObstacle, CPoint(273, 189));
-	AddObstacle(ELMBState::AddCircleObstacle, CPoint(310, 252));*/
+	for (int i = 0; i < 150; i++)
+	{
+		Rect2Df treerct = _tree->GetBound();
+		int x = rand() % (int)treerct.GetWidth();
+		int y = rand() % (int)treerct.GetHeight();
+		if(rand() / (float)RAND_MAX > 0.5f)
+			AddObstacle(ELMBState::AddCircleObstacle, CPoint(x, y), 5);
+		else
+			AddObstacle(ELMBState::AddOBBObstacle, CPoint(x, y), 5);
+	}
 }
 
 void CChildView::CheckIntersect()
@@ -275,10 +294,10 @@ void CChildView::CheckIntersect()
 	float dT = 1;
 	IQuadTreeObject* pObj = _tree->GetIntersectSegment(_intersectsegment, dT);
 
-	/*vector<IQuadTreeObject*> objects;
-	for_each(begin(_obstacles), end(_obstacles), [&objects](shared_ptr<CObstacle>& pObst) { objects.push_back(pObst.get());	});
-
-	IQuadTreeObject* pObj = GetIntersect(objects, _intersectsegment, dT);*/
+	//simple for_each for all objects
+	//vector<IQuadTreeObject*> objects;
+	//for_each(begin(_obstacles), end(_obstacles), [&objects](shared_ptr<CObstacle>& pObst) { objects.push_back(pObst.get());	});
+	//IQuadTreeObject* pObj = GetIntersect(objects, _intersectsegment, dT);
 
 	_intersecT = static_cast<float>(dT);
 

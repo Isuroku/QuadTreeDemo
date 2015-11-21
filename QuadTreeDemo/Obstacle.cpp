@@ -63,10 +63,10 @@ CObstacleOBB::~CObstacleOBB() {}
 const int VertCount = 4;
 void CObstacleOBB::Draw(CPaintDC& dc)
 {
-	Rect2Df rct = _obb.GetBoundBox();
-	dc.Rectangle(&rct.GetWinRect());
+	//Rect2Df rct = _obb.GetBoundBox();
+	//dc.Rectangle(&rct.GetWinRect());
 
-	/*Vector2Df av[VertCount];
+	Vector2Df av[VertCount];
 	_obb.GetVertices(av);
 
 	POINT ap[VertCount];
@@ -76,7 +76,7 @@ void CObstacleOBB::Draw(CPaintDC& dc)
 		ap[i].y = static_cast<LONG>(av[i].y);
 	}
 
-	dc.Polygon(ap, VertCount);*/
+	dc.Polygon(ap, VertCount);
 }
 
 bool CObstacleOBB::TestIntersect(const Rect2Df& inBoundBox)

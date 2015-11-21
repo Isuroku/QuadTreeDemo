@@ -50,6 +50,11 @@ public:
 
 	virtual bool IsIntersectSegment(const Segment2Df& inSegment, float& ioT) const override;
 
+	void Rotate(float inAngle)
+	{
+		_obb.Rotate(inAngle);
+	}
+
 private:
 	OBB2Df _obb;
 };

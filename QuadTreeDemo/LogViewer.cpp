@@ -87,5 +87,26 @@ void CLogViewer::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
 {
 	CDialog::OnActivate(nState, pWndOther, bMinimized);
 
-	//AddLog(L"Test");
+	if (!_init)
+	{
+		PrintHelpText();
+		_init = true;
+	}
+}
+
+void CLogViewer::PrintHelpText()
+{
+	AddLog(L"    HINTS:");
+	AddLog(L"Button panel:");
+	AddLog(L"Circle Button: works with Circle Obstacles");
+	AddLog(L"LMB - add new Circle Obstacle");
+	AddLog(L"RMB - delete a Circle Obstacle");
+	AddLog(L"Rectangle Button: works with OBB Obstacles");
+	AddLog(L"LMB - add new OBB Obstacle (random rotation)");
+	AddLog(L"RMB - delete an OBB Obstacle");
+	AddLog(L"Button with T, Rectangle and Circle: add many obstacles");
+	AddLog(L"Button with Eraser: delete all obstacles");
+	AddLog(L"Button with Blue Arrow: check intersect segment");
+	AddLog(L"LMB - set the begin of the segment");
+	AddLog(L"RMB - set the end of the segment");
 }

@@ -27,9 +27,9 @@ public:
 
 	inline void Rotate(TYPE inAngle)
 	{
-		Matrix2x2<TYPE> rot = new Matrix2x2<TYPE>();
-		rot.Rotate(in_Angle);
-		_orientation = _orientation * rot;
+		Matrix2x2<TYPE> rot;
+		rot.Rotate(inAngle);
+		_orientation = mul(_orientation, rot);
 	}
 
 	inline Rect2D<TYPE> GetBoundBox() const

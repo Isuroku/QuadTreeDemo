@@ -58,8 +58,10 @@ private:
 	afx_msg void OnShowLogsCmd();
 	afx_msg void OnUpdateShowLogsCmd(CCmdUI* pCmdUI);
 	afx_msg void OnTestObstaclesCmd();
+	afx_msg void OnClearAllObstaclesCmd();
 	afx_msg void OnIntersectStateCmd();
 	afx_msg void OnUpdateIntersectStateCmd(CCmdUI* pCmdUI);
+	afx_msg void OnHelpBtnCmd();
 	DECLARE_MESSAGE_MAP()
 
 };

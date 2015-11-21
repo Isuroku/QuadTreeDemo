@@ -65,10 +65,9 @@ public:
 	inline void		one() { m[0][0] = m[1][1] = 1.f; m[0][1] = m[1][0] = 0.f; }
 	inline void		Rotate(TYPE angle)
 	{
-		TYPE cosine;
-		TYPE sine;
-		SinCos(angle, sine, cosine);
-
+		TYPE cosine = cos(angle);
+		TYPE sine = sin(angle);
+		
 		m[0][0] = cosine;
 		m[1][1] = cosine;
 		m[1][0] = -sine;
@@ -131,10 +130,10 @@ template <typename TYPE>
 Matrix2x2<TYPE> mul(const Matrix2x2<TYPE> &v, const Matrix2x2<TYPE> &u)
 {
 	Matrix2x2<TYPE> r;
-	r[0][0] = v.m[0][0] * u.m[0][0] + v.m[0][1] * u.m[1][0];
-	r[0][1] = v.m[0][0] * u.m[0][1] + v.m[0][1] * u.m[1][1];
-	r[1][0] = v.m[1][0] * u.m[0][0] + v.m[1][1] * u.m[1][0];
-	r[1][1] = v.m[1][0] * u.m[0][1] + v.m[1][1] * u.m[1][1];
+	r.m[0][0] = v.m[0][0] * u.m[0][0] + v.m[0][1] * u.m[1][0];
+	r.m[0][1] = v.m[0][0] * u.m[0][1] + v.m[0][1] * u.m[1][1];
+	r.m[1][0] = v.m[1][0] * u.m[0][0] + v.m[1][1] * u.m[1][0];
+	r.m[1][1] = v.m[1][0] * u.m[0][1] + v.m[1][1] * u.m[1][1];
 	return r;
 }
 

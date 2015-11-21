@@ -28,8 +28,10 @@ BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_COMMAND(ID_SHOWLOGS, &CMainFrame::OnShowLogsCmd)
 	ON_UPDATE_COMMAND_UI(ID_SHOWLOGS, &CMainFrame::OnUpdateShowLogsCmd)
 	ON_COMMAND(ID_TESTOBST, &CMainFrame::OnTestObstaclesCmd)
+	ON_COMMAND(ID_CLEARALLBTN, &CMainFrame::OnClearAllObstaclesCmd)
 	ON_COMMAND(ID_INTERSECTBTN, &CMainFrame::OnIntersectStateCmd)
 	ON_UPDATE_COMMAND_UI(ID_INTERSECTBTN, &CMainFrame::OnUpdateIntersectStateCmd)
+	ON_COMMAND(ID_APP_ABOUT, &OnHelpBtnCmd)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -88,7 +90,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	return 0;
 }
 
-const int MainWindowWidth = 800;
+const int MainWindowWidth = 713;
 const int MainWindowHeight = 800;
 const int LogWindowWidth = 400;
 
@@ -213,8 +215,12 @@ void CMainFrame::OnShowLogsCmd()
 
 void CMainFrame::OnTestObstaclesCmd()
 {
-	//DebugLog(L"OnTestObstaclesCmd");
 	m_wndView.SetTestObstacles();
+}
+
+void CMainFrame::OnClearAllObstaclesCmd()
+{
+	m_wndView.ClearAllObstacles();
 }
 
 void CMainFrame::OnUpdateShowLogsCmd(CCmdUI* pCmdUI)
@@ -222,3 +228,7 @@ void CMainFrame::OnUpdateShowLogsCmd(CCmdUI* pCmdUI)
 	pCmdUI->SetCheck(_logviewer->IsWindowVisible());
 }
 
+void CMainFrame::OnHelpBtnCmd()
+{
+	_logviewer->PrintHelpText();
+}
